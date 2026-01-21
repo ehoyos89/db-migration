@@ -1,0 +1,20 @@
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql_origin
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: ecommerce_db
+    ports:
+      - "0.0.0.0:3306:3306"
+    networks:
+      - migration_network
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init-db:/docker-entrypoint-initdb.d
+networks:
+  migration_network:
+    driver: bridge
+volumes:
+  mysql_data:
